@@ -2,10 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const updateSession = async (request: NextRequest) => {
-  // This `try/catch` block is only here for the interactive tutorial.
-  // Feel free to remove once you have Supabase connected.
   try {
-    // Create an unmodified response
     let response = NextResponse.next({
       request: {
         headers: request.headers,
@@ -22,37 +19,58 @@ export const updateSession = async (request: NextRequest) => {
           },
           setAll(cookiesToSet) {
             cookiesToSet.forEach(({ name, value }) =>
-              request.cookies.set(name, value),
+              request.cookies.set(name, value)
             );
             response = NextResponse.next({
               request,
             });
             cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options),
+              response.cookies.set(name, value, options)
             );
           },
         },
-      },
+      }
     );
 
-    // This will refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/server-side/nextjs
-    const user = await supabase.auth.getUser();
+    // Refresh session if expired
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
 
-    // protected routes
-    if (request.nextUrl.pathname.startsWith("/protected") && user.error) {
+    // Redirect to sign-in if user is not authenticated and trying to access protected routes
+    if (request.nextUrl.pathname.startsWith("/protected") && authError) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
 
-    if (request.nextUrl.pathname === "/" && !user.error) {
+    // Redirect to home if user is authenticated and tries to access the root page
+    if (request.nextUrl.pathname === "/" && !authError) {
       return NextResponse.redirect(new URL("/protected", request.url));
+    }
+
+    // Check if the user is trying to access the /turfadd page
+    if (request.nextUrl.pathname.startsWith("/turfadd")) {
+      if (authError) {
+        // Redirect to sign-in if the user is not authenticated
+        return NextResponse.redirect(new URL("/sign-in", request.url));
+      }
+
+      // Fetch the user's role from the `users` table
+      const { data: userData, error: userError } = await supabase
+        .from("users")
+        .select("role")
+        .eq("id", user?.id)
+        .single();
+
+      if (userError || !userData || userData.role !== "admin") {
+        // Redirect to home page if the user is not an admin
+        return NextResponse.redirect(new URL("/", request.url));
+      }
     }
 
     return response;
   } catch (e) {
-    // If you are here, a Supabase client could not be created!
-    // This is likely because you have not set up environment variables.
-    // Check out http://localhost:3000 for Next Steps.
+    console.error("Middleware error:", e);
     return NextResponse.next({
       request: {
         headers: request.headers,
