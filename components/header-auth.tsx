@@ -12,47 +12,43 @@ export default async function AuthButton() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // Function to truncate the email
+  function truncateEmail(email: string | undefined): string {
+    if (!email) return 'Guest'; // or return an empty string ''
+    // Your truncation logic here
+    return email.split('@')[0]; // Example truncation
+  }
+
   if (!hasEnvVars) {
     return (
-      <>
-        <div className="flex gap-4 items-center">
-          <div>
-            <Badge
-              variant={"default"}
-              className="font-normal pointer-events-none"
-            >
-              Please update .env.local file with anon key and url
-            </Badge>
-          </div>
-          <div className="flex gap-2">
-  <Button
-    asChild
-    size="sm"
-    variant={"outline"}
-    disabled
-    className="opacity-75 cursor-none pointer-events-none"
-  >
-    <Link href="/sign-in">Sign in</Link>
-  </Button>
-  <Button
-    asChild
-    size="sm"
-    variant="custmize"
-    disabled
-   
-  >
-    <Link href="/sign-up">Sign up</Link>
-  </Button>
-</div>
+      <div className="flex flex-col sm:flex-row gap-4 items-center">
+        <div>
+          <Badge
+            variant={"default"}
+            className="font-normal pointer-events-none text-center sm:text-left"
+          >
+            Please update .env.local file with anon key and url
+          </Badge>
         </div>
-      </>
+        <div className="flex gap-2">
+          <Button asChild size="sm" variant={"outline"} disabled>
+            <Link href="/sign-in"><b>Sign in</b></Link>
+          </Button>
+          <Button asChild size="sm" variant={"outline"} disabled>
+            <Link href="/sign-up">Sign up</Link>
+          </Button>
+        </div>
+      </div>
     );
   }
+
   return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.email}!
+    <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+      <span className="text-sm sm:text-base text-center sm:text-left">
+        Hey, {truncateEmail(user.email)}!
+      </span>
       <form action={signOutAction}>
-        <Button type="submit" variant={"outline"}>
+        <Button type="submit" variant={"outline"} size="sm" className="w-full sm:w-auto">
           Sign out
         </Button>
       </form>

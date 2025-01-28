@@ -44,14 +44,13 @@ export default function RootLayout({
           <nav className="w-full bg-gradient-to-r from-yellow-300 to-green-500 shadow-md fixed top-0 z-50">
   <div className="w-full max-w-5xl mx-auto flex justify-between items-center p-4">
     <div className="flex gap-5 items-center font-semibold">
-      <Link href={"/"} className="text-2xl font-bold text-gray-800 hover:text-teal-600 transition duration-300">
+      <Link href={"/"} className="text-xl md:text-2xl font-bold text-gray-800 hover:text-teal-600 transition duration-300">
         Turfbuddie
       </Link>
     </div>
     {!hasEnvVars ? <EnvVarWarning /> : <HeaderAuth />}
   </div>
 </nav>
-
         <div className="w-full bg-cover">{children}</div>
                 
               
