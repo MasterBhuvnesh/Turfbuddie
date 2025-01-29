@@ -41,7 +41,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {/* Fixed Navigation Bar */}
-          <nav className="w-full bg-gradient-to-r from-yellow-300 to-green-500 shadow-md fixed top-0 z-50">
+          <nav className="w-11/12 bg-gradient-to-r from-yellow-300 to-green-500 shadow-md fixed left-1/2 top-6 -translate-x-1/2 z-50 rounded-2xl">
   <div className="w-full max-w-5xl mx-auto flex justify-between items-center p-4">
     <div className="flex gap-5 items-center font-semibold">
       <Link href={"/"} className="text-xl md:text-2xl font-bold text-gray-800 hover:text-teal-600 transition duration-300">

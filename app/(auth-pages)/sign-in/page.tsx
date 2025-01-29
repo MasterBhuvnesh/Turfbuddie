@@ -4,13 +4,16 @@ import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import Image from "next/image";
+
 
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
   return (
-    <div className="flex min-h-screen w-screen bg-gradient-to-r from-green-200 to-green-500">
-  <main className="flex-1 flex items-center justify-center p-4">
-  <form className="flex flex-col w-full max-w-md bg-[#ade25d] p-8 rounded-lg shadow-md">
+    <div className="flex min-h-screen w-screen bg-gradient-to-r from-green-200 to-green-500 gap-2">
+    
+  <main className="flex-1 flex  items-center justify-center p-4">
+  <form className="flex flex-col w-full max-w-md bg-[#ade25d] p-8 rounded-lg rounded-tl-[100px] shadow-md">
   <h1 className="text-4xl text-center font-medium text-gray-800 mb-6"><b>Sign in</b></h1>
 
   <div className="flex flex-col gap-4">

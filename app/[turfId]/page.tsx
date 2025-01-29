@@ -27,8 +27,8 @@ export default async function TurfPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-100 to-blue-100 p-4">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="min-h-screen  bg-gradient-to-r from-green-200 to-green-500 p-4">
+      <div className="m-28 max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Image Gallery Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
           {turf.images && turf.images.length > 0 ? (

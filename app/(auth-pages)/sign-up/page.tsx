@@ -19,8 +19,11 @@ export default async function Signup(props: {
 
   return (
     <div className="flex flex-col min-h-screen w-screen bg-gradient-to-r from-green-200 to-green-500">
+      <div>
+        
+      </div>
       <main className="flex-1 flex items-center justify-center p-4">
-        <form className="flex flex-col w-full max-w-md bg-[#ade25d] p-8 rounded-lg shadow-md">
+        <form className="flex flex-col w-full max-w-md bg-[#ade25d] p-8 rounded-lg rounded-tl-[100px] shadow-md">
           <h1 className="text-4xl text-center font-medium text-gray-800 mb-6">
             <b>Sign up</b>
           </h1>

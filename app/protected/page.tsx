@@ -272,8 +272,8 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="min-h-screen flex-1 w-full flex flex-col gap-8 mt-20 p-6 bg-gradient-to-r from-green-200 to-green-500">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
+    <div className="min-h-screen flex-1 w-full flex flex-col gap-8  p-6 bg-gradient-to-r from-green-200 to-green-500">
+      <h1 className="text-4xl mt-28 font-bold text-center text-gray-800 mb-8">
         Explore Turfs
       </h1>
 
