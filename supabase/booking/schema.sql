@@ -43,3 +43,11 @@ USING (EXISTS (
     FROM users
     WHERE id = auth.uid() AND role = 'admin'
 ));
+
+CREATE POLICY "Users can create a booking"
+ON booking_slots
+FOR INSERT
+TO authenticated
+WITH CHECK (
+    is_booked = TRUE AND booked_by_user_id = auth.uid()
+);

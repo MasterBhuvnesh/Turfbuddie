@@ -8,13 +8,21 @@ interface PageProps {
   };
 }
 
+
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+export default async function TurfPage({ params }: { params: Promise<PageProps["params"]> }) {
+  const supabase =  await createClient(); // No need to `await` createClient()
 
-export default async function TurfPage({ params }: PageProps) {
-  const supabase = await createClient();
+  const { turfId } = await params;
 
-  // Convert underscores back to spaces in the turf name
-  const turfNameWithSpaces = params.turfId.replace(/_/g, " ");
+  // Extract turfId safely
+  if (!turfId) {
+    return <div>Error: Turf ID not found.</div>;
+  }
+
+  // Convert underscores back to spaces
+  const turfNameWithSpaces = turfId.replace(/_/g, " ");
+
 
   // Fetch the specific turf based on the name
   const { data: turf, error: turfError } = await supabase
@@ -66,8 +74,8 @@ export default async function TurfPage({ params }: PageProps) {
                       <Image
                           src={`${supabaseUrl}/storage/v1/object/public/turf_images/${turf.name.replace(/ /g, "_")}/${imageName}`}
                           alt={`${turf.name} Image ${index + 1}`}
-                          layout="fill"
-                          objectFit="cover"
+                         fill
+                          style={{ objectFit: "cover" }}
                           className="rounded-lg"
                           priority={index === 0}
                       />
