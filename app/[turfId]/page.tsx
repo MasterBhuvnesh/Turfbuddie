@@ -111,48 +111,49 @@ export default async function TurfPage({ params }: { params: Promise<PageProps["
 
             {/* Booking Matrix Section */}
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">
-                Booking Availability (Next 5 Days)
-              </h2>
-              <div className="overflow-x-auto">
-                <table className="min-w-full bg-white border border-gray-200">
-                  <thead>
-                  <tr>
-                    <th className="px-4 py-2 border-b">Time Slot</th>
-                    {Object.keys(slotsByDate).map((date) => (
-                        <th key={date} className="px-4 py-2 border-b">
-                          {new Date(date).toLocaleDateString()}
-                        </th>
-                    ))}
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {Array.from({ length: 24 }).map((_, hour) => (
-                      <tr key={hour}>
-                        <td className="px-4 py-2 border-b">
-                          {`${String(hour).padStart(2, "0")}:00 - ${String(hour + 1).padStart(2, "0")}:00`}
-                        </td>
-                        {Object.keys(slotsByDate).map((date) => {
-                          const slot = slotsByDate[date].find(
-                              (s) => s.start_time === `${String(hour).padStart(2, "0")}:00:00`
-                          );
-                          return (
-                              <td
-                                  key={date}
-                                  className={`px-4 py-2 border-b text-center ${
-                                      slot?.is_booked ? "bg-red-200" : "bg-green-200"
-                                  }`}
-                              >
-                                {slot?.is_booked ? "Booked" : "Available"}
-                              </td>
-                          );
-                        })}
-                      </tr>
-                  ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+  <h2 className="text-xl font-bold text-gray-800 mb-4">
+    Booking Availability (Next 5 Days)
+  </h2>
+  <div className="overflow-x-auto">
+    <table className="min-w-full bg-white border-separate border-spacing-2">
+      <thead>
+        <tr>
+          <th className="px-4 py-2">Time Slot</th>
+          {Object.keys(slotsByDate).map((date) => (
+            <th key={date} className="px-4 py-2">
+              {new Date(date).toLocaleDateString()}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {Array.from({ length: 24 }).map((_, hour) => (
+          <tr key={hour}>
+            <td className="px-4 py-2 font-medium">
+              {`${String(hour).padStart(2, "0")}:00 - ${String(hour + 1).padStart(2, "0")}:00`}
+            </td>
+            {Object.keys(slotsByDate).map((date) => {
+              const slot = slotsByDate[date].find(
+                (s) => s.start_time === `${String(hour).padStart(2, "0")}:00:00`
+              );
+              return (
+                <td
+                  key={date}
+                  className={`px-4 py-2 text-center rounded-lg ${
+                    slot?.is_booked ? "bg-red-200" : "bg-green-200"
+                  }`}
+                >
+                  {slot?.is_booked ? "Booked" : "Available"}
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
             <p className="text-xl md:text-2xl font-bold text-gray-800 mb-4">
               Price: ₹{turf.price} per hour

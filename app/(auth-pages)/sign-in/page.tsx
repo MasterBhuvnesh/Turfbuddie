@@ -6,70 +6,65 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import Image from "next/image";
 
-
 export default async function Login(props: { searchParams: Promise<Message> }) {
   const searchParams = await props.searchParams;
   return (
-    <div className="flex min-h-screen w-screen bg-gradient-to-r from-green-200 to-green-500 gap-2">
-    
-  <main className="flex-1 flex  items-center justify-center p-4">
-  <form className="flex flex-col w-full max-w-md bg-[#ade25d] p-8 rounded-lg rounded-tl-[100px] shadow-md">
-  <h1 className="text-4xl text-center font-medium text-gray-800 mb-6"><b>Sign in</b></h1>
-
-  <div className="flex flex-col gap-4">
-    <div>
-      <Label htmlFor="email" className="text-gray-700">
-        <b>Email</b>
-      </Label>
-      <Input
-        name="email"
-        placeholder="you@example.com"
-        required
-      />
-    </div>
-
-    <div>
-      <div className="flex justify-between items-center">
-        <Label htmlFor="password" className="text-gray-700">
-          <b>Password</b>
-        </Label>
-        <Link
-          className="text-xs text-teal-600 font-medium hover:underline"
-          href="/forgot-password"
-        >
-          Forgot Password?
-        </Link>
-      </div>
-      <Input
-        type="password"
-        name="password"
-        placeholder="Your password"
-        required
-      />
-    </div>
-
-    <SubmitButton
-      pendingText="Signing In..."
-      formAction={signInAction}
-      className="w-full bg-teal-600 text-white py-2 rounded-md hover:bg-teal-700 transition-colors"
-    >
-      Sign in
-    </SubmitButton>
-
-    <FormMessage message={searchParams} />
-  </div>
-
-  <p className="text-sm text-gray-700 text-center mt-6">
-    Don't have an account?{" "}
-    <Link
-      className="text-teal-600 font-medium underline hover:text-teal-700"
-      href="/sign-up"
-    >
-      Sign up
-    </Link>
-  </p>
-</form>
-  </main>
+    <div style={{
+      backgroundImage: `url(/assets/back.jpg)`,
+      backgroundSize: 'cover', // Adjust as needed
+      backgroundPosition: 'center', // Adjust as needed
+      width: 'cover', // Adjust as needed
+      height: '100px', // Adjust as needed
+    }} className="flex min-h-screen w-screen bg-gray-100 items-center justify-center px-4 sm:px-8">
+      <div className="flex w-full max-w-4xl bg-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.1)] rounded-lg overflow-hidden">
+        {/* Left side: Image */}
+        <div className="w-full md:w-1/2 hidden md:flex bg-gray-200 relative">
+  <Image
+    src="/assets/sign-in-image.jpeg" // Make sure this image is in the public folder
+    alt="Illustration"
+    fill // Automatically sets width and height to cover parent
+    className="object-cover"
+  />
 </div>
+
+
+        {/* Right side: Login Form */}
+        <div className="w-full md:w-1/2 p-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6">Sign in</h1>
+          
+         
+          
+         
+          <form className="min-h-72 flex space-y-4 flex-col gap-4">
+            <div>
+              <Label htmlFor="email" className="text-gray-700">Email</Label>
+              <Input name="email" placeholder="you@example.com" required />
+            </div>
+            
+            <div>
+              <Label htmlFor="password" className="text-gray-700">Password</Label>
+              <Input type="password" name="password" placeholder="Your password" required />
+            </div>
+            
+            <SubmitButton
+              pendingText="Signing In..."
+              formAction={signInAction}
+              className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-800 transition-colors"
+            >
+              Sign In
+            </SubmitButton>
+          </form>
+          
+          <FormMessage message={searchParams} />
+          
+          <p className="text-sm text-gray-700 text-center mt-6">
+            Don't have an account?{' '}
+            <Link className="text-blue-600 font-medium underline hover:text-blue-700" href="/sign-up">
+              Sign up
+            </Link>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
