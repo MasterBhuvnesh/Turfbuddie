@@ -10,17 +10,34 @@ export default async function ForgotPassword(props: {
 }) {
   const searchParams = await props.searchParams;
   return (
-    <div className="flex flex-col min-h-screen w-screen bg-gradient-to-r from-green-200 to-green-500">
-      <main className="flex-1 flex items-center justify-center p-4">
-        <form className="flex flex-col w-full max-w-md bg-[#ade25d] p-8 rounded-lg shadow-md">
-          <h1 className="text-4xl text-center font-medium text-gray-800 mb-6">
-            <b>Reset Password</b>
-          </h1>
+    <div
+      style={{
+        backgroundImage: `url(/assets/back.jpg)`, // same background as the sign-in page
+        backgroundSize: "cover", // Adjust as needed
+        backgroundPosition: "center", // Adjust as needed
+        width: "cover", // Adjust as needed
+        height: "100px", // Adjust as needed
+      }}
+      className="flex min-h-screen w-screen bg-gray-100 items-center justify-center px-4 sm:px-8"
+    >
+      <div className="flex w-full max-w-4xl bg-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.1)] rounded-lg overflow-hidden">
+        {/* Left side: Image */}
+        <div className="w-full md:w-1/2 hidden md:flex bg-gray-200 relative">
+          <img
+            src="/assets/forget.jpg" // Make sure this image is in the public folder
+            alt="Illustration"
+            className="object-cover w-full h-full"
+          />
+        </div>
 
-          <div className="flex flex-col gap-4">
+        {/* Right side: Forgot Password Form */}
+        <div className="w-full md:w-1/2 p-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-6">Forgot Password</h1>
+
+          <form className="min-h-72 flex space-y-4 flex-col gap-4">
             <div>
               <Label htmlFor="email" className="text-gray-700">
-                <b>Email</b>
+                Email
               </Label>
               <Input
                 name="email"
@@ -28,16 +45,18 @@ export default async function ForgotPassword(props: {
                 required
               />
             </div>
-
-            <SubmitButton
+            <div> <SubmitButton
+              pendingText="Sending email..."
               formAction={forgotPasswordAction}
               className="w-full bg-teal-600 text-white py-2 rounded-md hover:bg-teal-700 transition-colors"
             >
               Reset Password
-            </SubmitButton>
+            </SubmitButton></div>
+
+           
 
             <FormMessage message={searchParams} />
-          </div>
+          </form>
 
           <hr className="border-t border-gray-300 my-4 w-full" />
 
@@ -50,8 +69,8 @@ export default async function ForgotPassword(props: {
               Sign in
             </Link>
           </p>
-        </form>
-      </main>
+        </div>
+      </div>
     </div>
   );
 }

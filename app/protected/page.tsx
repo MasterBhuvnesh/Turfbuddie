@@ -371,11 +371,19 @@ export default async function ProtectedPage() {
   }
 
   return (
-      <div className="min-h-screen flex-1 w-full flex flex-col gap-8 p-6 bg-gradient-to-r from-green-200 to-green-500">
+      <div 
+      //style={{
+      //   backgroundImage: `url(/assets/turfsback.webp)`,
+      //   backgroundSize: 'cover', // Adjust as needed
+      //   backgroundPosition: 'center', // Adjust as needed
+      //   width: 'cover', // Adjust as needed
+      //   height: '100px', // Adjust as needed
+      // }} 
+      className="min-h-screen flex-1 w-full flex flex-col gap-8 p-6  bg-gradient-to-r from-green-200 to-green-500 ">
         <h1 className="text-4xl mt-28 font-bold text-center text-gray-800 mb-8">Explore Turfs</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-6xl mx-auto w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-6xl mx-auto  w-full">
           {turfs.map((turf: Turf) => (
-              <div key={turf.id} className="border rounded-lg overflow-hidden shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
+              <div key={turf.id} className="border rounded-lg overflow-hidden shadow-lg bg-gray-800 hover:shadow-xl transition-shadow duration-300">
                 <div className="relative h-48 overflow-hidden rounded-t-lg">
                   {turf.images && turf.images.length > 0 ? (
                       <Image
@@ -393,10 +401,10 @@ export default async function ProtectedPage() {
                 </div>
                 <div className="p-6">
                   <h2 className="text-xl font-bold text-gray-800 mb-2">{turf.name}</h2>
-                  <p className="text-sm text-gray-600 mb-4">{turf.description}</p>
+                  <p className="text-sm text-white mb-4">{turf.description}</p>
                   <div className="space-y-2">
-                    <p className="text-gray-700"><strong>Address:</strong> {turf.address}</p>
-                    <p className="text-gray-700"><strong>Price:</strong> ₹{turf.price} per hour</p>
+                    <p className="text-white"><strong>Address:</strong> {turf.address}</p>
+                    <p className="text-white"><strong>Price:</strong> ₹{turf.price} per hour</p>
                   </div>
                   <Link
                       href={`/${encodeURIComponent(turf.name.replace(/ /g, "_"))}`}
